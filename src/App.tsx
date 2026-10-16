@@ -22,22 +22,19 @@ const themeNames: Record<Theme, string> = {
     fantasy: 'Dreamy Fantasy'
 }
 
-const alarmSounds: Record<AlarmSound, {
-    name: string
-    file: string
-}> = {
+const alarmSounds: Record<AlarmSound, { name: string; file: string }> = {
     digital: {
         name: 'Digital Beep',
-        file: '/sounds/digital-beep.mp3'
+        file: `${import.meta.env.BASE_URL}sounds/digital-beep.mp3`,
     },
     zen: {
         name: 'Zen Bell',
-        file: '/sounds/zen-bell.mp3'
+        file: `${import.meta.env.BASE_URL}sounds/zen-bell.mp3`,
     },
     hazard: {
         name: 'Hazard',
-        file: '/sounds/hazard-alarm.mp3'
-    }
+        file: `${import.meta.env.BASE_URL}sounds/hazard-alarm.mp3`,
+    },
 }
 
 // =====================================

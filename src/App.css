@@ -8,7 +8,7 @@
     --text-color: #fff4e8;
     --accent-color: #e9b980;
     --card-transparent: rgba(53, 43, 43, 0.28);
-    --background-image: url('/backgrounds/cozy.jpg');
+    --background-image: url('/focus-haven/backgrounds/cozy.jpg');
 }
 
 .theme-nature {
@@ -16,7 +16,7 @@
     --text-color: #edf9ed;
     --accent-color: #b8dfb7;
     --card-transparent: rgba(32, 59, 48, 0.28);
-    --background-image: url('/backgrounds/nature.jpg');
+    --background-image: url('/focus-haven/backgrounds/nature.jpg');
 }
 
 .theme-fantasy {
@@ -24,7 +24,7 @@
     --text-color: #f7efff;
     --accent-color: #e2c8ff;
     --card-transparent: rgba(52, 40, 73, 0.28);
-    --background-image: url('/backgrounds/fantasy.jpg');
+    --background-image: url('/focus-haven/backgrounds/fantasy.jpg');
 }
 
 /* =====================================

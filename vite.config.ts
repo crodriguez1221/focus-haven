@@ -1,7 +1,8 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// https://vite.dev/config/
+// Vite configuration for Focus Haven
 export default defineConfig({
-  plugins: [react()],
+    plugins: [react()],
+    base: '/focus-haven/',
 })
