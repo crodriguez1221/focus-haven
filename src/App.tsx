@@ -1,6 +1,9 @@
 ﻿
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
+import { playDigitalBeep } from './audio/digitalBeep'
+import { playZenBell } from './audio/zenBell'
+import { playHazardAlarm } from './audio/hazardAlarm'
 
 // =====================================
 // TYPES AND SETTINGS
@@ -22,19 +25,10 @@ const themeNames: Record<Theme, string> = {
     fantasy: 'Dreamy Fantasy'
 }
 
-const alarmSounds: Record<AlarmSound, { name: string; file: string }> = {
-    digital: {
-        name: 'Digital Beep',
-        file: `${import.meta.env.BASE_URL}sounds/digital-beep.mp3`,
-    },
-    zen: {
-        name: 'Zen Bell',
-        file: `${import.meta.env.BASE_URL}sounds/zen-bell.mp3`,
-    },
-    hazard: {
-        name: 'Hazard',
-        file: `${import.meta.env.BASE_URL}sounds/hazard-alarm.mp3`,
-    },
+const alarmSounds: Record<AlarmSound, { name: string }> = {
+    digital: { name: 'Digital Beep' },
+    zen: { name: 'Zen Bell' },
+    hazard: { name: 'Hazard Alarm' },
 }
 
 // =====================================
@@ -206,7 +200,6 @@ function App() {
     const lastTickRef = useRef<number | null>(null)
     const historyRef = useRef(history)
 
-    const alarmAudioRef = useRef<HTMLAudioElement | null>(null)
     const alarmSoundRef = useRef(alarmSound)
     const alarmVolumeRef = useRef(alarmVolume)
 
@@ -239,48 +232,40 @@ function App() {
     // =====================================
 
     const stopAlarm = useCallback(() => {
-        if (alarmAudioRef.current) {
-            alarmAudioRef.current.pause()
-            alarmAudioRef.current.currentTime = 0
-        }
+        // Web Audio playback will be given stop support next.
     }, [])
 
     const playAlarm = useCallback((
         sound: AlarmSound,
         volume: number
     ) => {
-        if (alarmAudioRef.current) {
-            alarmAudioRef.current.pause()
-            alarmAudioRef.current.currentTime = 0
-        }
-
         setAlarmError('')
 
         if (volume === 0) return
 
-        const audio = new Audio(alarmSounds[sound].file)
+        const normalizedVolume = volume / 100
 
-        audio.volume = volume / 100
-        audio.loop = false
+        let playback: Promise<void>
 
-        alarmAudioRef.current = audio
+        switch (sound) {
+            case 'digital':
+                playback = playDigitalBeep(normalizedVolume)
+                break
 
-        audio.addEventListener('error', () => {
-            if (alarmAudioRef.current === audio) {
-                setAlarmError(
-                    'Could not load the alarm. Check the file in public/sounds.'
-                )
-            }
-        })
+            case 'zen':
+                playback = playZenBell(normalizedVolume)
+                break
 
-        void audio.play().catch(error => {
+            case 'hazard':
+                playback = playHazardAlarm(normalizedVolume)
+                break
+        }
+
+        void playback.catch(error => {
             console.error('Alarm playback failed:', error)
-
-            if (alarmAudioRef.current === audio) {
-                setAlarmError(
-                    'The alarm could not play. Check the sound file and browser settings.'
-                )
-            }
+            setAlarmError(
+                'The alarm could not play. Check your browser audio settings.'
+            )
         })
     }, [])
 
@@ -396,12 +381,6 @@ function App() {
         return () => window.clearInterval(interval)
     }, [])
 
-    // Clean up audio when leaving the application.
-    useEffect(() => {
-        return () => {
-            alarmAudioRef.current?.pause()
-        }
-    }, [])
 
     // =====================================
     // TIMER ACTIONS
