@@ -1,163 +1,209 @@
-
 # Focus Haven
 
-**Find your space. Find your focus.**
+**A customizable study timer designed to make focused work more enjoyable.**
 
-A customizable focus timer and study productivity application built with React, TypeScript, and Vite.
+Focus Haven is a browser-based productivity application that combines customizable study sessions, immersive visual themes, audio notifications, and personal study tracking.
 
-Focus Haven combines immersive visual environments, flexible countdown timers, customizable completion alarms, and browser-based study tracking. The project explores frontend application architecture, time-based state management, persistent client-side data, and user-centered interface design.
+Built with React and TypeScript, Focus Haven provides a distraction-free environment where users can manage their focus sessions and monitor their study habits over time.
 
-> **Project status:** Active development. A public live demo is planned.
+### [Launch Focus Haven](https://crodriguez1221.github.io/focus-haven/)
 
-## Application Preview
-
-_Screenshot coming soon._
-
-## Live Demo
-
-**Coming soon.** Focus Haven is being prepared for deployment through GitHub Pages.
+---
 
 ## Features
 
-### Focus Timer
+### Customizable Focus Timer
 
-- Preset study sessions: 5, 10, 15, 25, 30, 45, and 60 minutes
-- Custom session durations
-- Start, pause, resume, and reset controls
-- Add 1, 3, 5, or 10 minutes to a session
+- Choose from preset sessions of 5, 10, 15, 25, 30, 45, or 60 minutes.
+- Set a custom session duration.
+- Add 1, 3, 5, or 10 minutes to a session.
+- Start, pause, and reset the timer.
+- Receive an audio notification when a session finishes.
 
-### Customizable Environments
+### Immersive Background Themes
 
-- Cozy, nature, and fantasy-inspired background themes
-- Theme selection without interrupting the study interface
+Choose from three visual environments:
 
-### Completion Alarms
+- **Cozy** — A warm, comfortable atmosphere.
+- **Nature** — A calming, nature-inspired environment.
+- **Fantasy** — An imaginative setting for focused work.
 
-- Three selectable MP3 alarms
-- Adjustable alarm volume
-- Alarm preview controls
+Each theme features its own background image and coordinated interface colors.
 
-### Study Progress
+### Customizable Alarm Sounds
 
-- Daily focus-time totals
-- Seven-day study history
-- Consecutive-day streaks based on a 15-minute daily goal
-- Browser `localStorage` persistence
+Select from three completion notifications:
 
-## Technology Stack
+- **Digital Beep**
+- **Zen Bell**
+- **Hazard Alarm**
+
+Users can preview their selected alarm and adjust its volume.
+
+### Study Tracking and Streaks
+
+Focus Haven helps users build consistent study habits through:
+
+- **Today's Focus:** Tracks accumulated study time.
+- **Daily Study History:** Displays recent study activity.
+- **Study Streaks:** Recognizes consecutive days with at least 15 minutes of focused study.
+- **Persistent Progress:** Saves study history locally in the browser.
+
+Study data is stored using the browser's `localStorage` API, allowing users to return to their progress without creating an account.
+
+---
+
+## Technologies Used
 
 | Technology | Purpose |
-| --- | --- |
-| React | Component-based interface and application state |
-| TypeScript | Static typing and maintainable application logic |
-| Vite | Development server and production build tooling |
-| CSS | Layout, visual themes, and responsive styling |
-| localStorage | Browser-based persistence of study history |
-| HTML Audio API | Completion alarm playback and volume control |
+|------------|---------|
+| React | Component-based user interface |
+| TypeScript | Type-safe application development |
+| Vite | Development environment and production builds |
+| CSS | Responsive styling, visual themes, and layout |
+| Browser localStorage | Persistent study history |
+| Git & GitHub | Version control and source management |
+| GitHub Actions | Automated build and deployment |
+| GitHub Pages | Static website hosting |
 
-## Technical Implementation
+---
 
-### Timer State and Elapsed Time
+## How It Works
 
-The countdown timer uses React state for interface updates and references to manage timing information. Session controls support pausing, resuming, resetting, and extending a countdown.
+### Timer Management
 
-### Daily Study History
+The timer supports configurable durations and interactive controls for starting, pausing, resetting, and extending sessions.
 
-Study time is organized by local calendar date and stored as milliseconds in browser `localStorage`. The implementation accounts for sessions that cross midnight by assigning elapsed time to the corresponding dates.
+Time calculations use JavaScript timestamps and React state to manage the displayed countdown.
 
-### Study Streaks
+### Study History
 
-Daily totals are evaluated against a 15-minute study goal. The streak calculation considers consecutive qualifying days and preserves an ongoing streak when the current day has not yet reached the goal.
+Focus Haven records accumulated study time by calendar date.
 
-### Browser-Based Audio
+Study history is saved in browser storage so that refreshing or reopening the website does not normally erase recorded progress.
 
-Completion alarms use browser audio playback, with user-selectable sounds, volume settings, and preview controls. Browser autoplay restrictions and audio behavior remain part of ongoing testing.
+### Daily Streaks
 
-## Architecture and Design Decisions
+A study day qualifies toward a streak after at least 15 minutes of accumulated focus time.
 
-- **Client-side first:** The initial application does not require accounts, a backend, or a database.
-- **Local persistence:** Study history stays in the user's browser rather than being uploaded to a remote service.
-- **Separation of concerns:** Timer behavior, study-history calculations, and interface presentation are implemented using React, TypeScript, and CSS.
-- **Incremental development:** Features are added and refined through testing, debugging, and version-controlled changes.
+The application evaluates consecutive qualifying days to help users monitor consistency.
+
+### Privacy
+
+Focus Haven does not currently require user accounts or collect study data through a backend service.
+
+Study history is stored locally in the user's browser.
+
+Because there is no cloud synchronization, progress does not automatically transfer between browsers or devices. Clearing browser storage may also remove saved history.
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm
-- A modern web browser
+To run Focus Haven locally, install:
+
+- [Node.js](https://nodejs.org/)
+- npm (included with Node.js)
+- Git
 
 ### Installation
 
-1. Clone the repository:
+**1. Clone the repository**
 
-   ```bash
-   git clone https://github.com/crodriguez1221/focus-haven.git
-   ```
+```bash
+git clone https://github.com/crodriguez1221/focus-haven.git
+```
 
-2. Open the project directory:
+**2. Navigate to the project directory**
 
-   ```bash
-   cd focus-haven
-   ```
+```bash
+cd focus-haven
+```
 
-3. Install dependencies:
+**3. Install dependencies**
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-4. Start the development server:
+**4. Start the development server**
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
-5. Open the local URL displayed by Vite, typically `http://localhost:5173/`.
+Open the local URL displayed in your terminal to access the application.
 
 ### Production Build
+
+To generate an optimized production build:
 
 ```bash
 npm run build
 ```
 
-The generated production files are placed in `dist/`.
+To preview the production build locally:
 
-## Privacy and Security Considerations
+```bash
+npm run preview
+```
 
-Focus Haven currently operates without user accounts or a remote database. Study-history data is stored locally in the browser.
+---
 
-- No account credentials are required to use the timer.
-- Study history is not synchronized between devices.
-- Browser storage can be cleared or modified by the user and is not considered tamper-proof.
-- Frontend source code and publicly served assets are visible to website visitors.
-- Production deployment and dependency security reviews are planned before public release.
+## Deployment
 
-The application is not presented as security-audited or production-hardened.
+Focus Haven is deployed through **GitHub Pages** using an automated **GitHub Actions** workflow.
 
-## Known Limitations
+The deployment process:
 
-- Study history is specific to the browser and device where it was recorded.
-- Clearing browser data can remove saved study history.
-- Timer behavior during browser suspension, device sleep, and background execution requires additional testing.
-- A public deployment has not yet been completed.
+1. Retrieves the latest project files.
+2. Installs dependencies.
+3. Runs the TypeScript and Vite production build.
+4. Publishes the generated website files to GitHub Pages.
 
-## Development Roadmap
+**Live Application:** [Launch Focus Haven](https://crodriguez1221.github.io/focus-haven/)
 
-- [ ] Complete timer and study-history reliability testing
-- [ ] Improve mobile responsiveness and accessibility
-- [ ] Review dependencies and publicly distributed assets
-- [ ] Add application screenshots and demonstration media
-- [ ] Deploy a live website using GitHub Pages
-- [ ] Explore study analytics and progress visualizations
-- [ ] Evaluate Progressive Web App (PWA) support
+---
+
+## Future Improvements
+
+Potential enhancements include:
+
+- Optional user accounts and cross-device synchronization.
+- Study history export and import.
+- Additional visual themes and notification sounds.
+- Expanded study statistics and productivity insights.
+- Accessibility and user experience improvements.
+
+These are potential future enhancements rather than currently available features.
+
+---
+
+## Assets and Acknowledgments
+
+- **Background Images:** AI-generated artwork.
+- **Audio Notifications:** Sound effects sourced from [Pixabay](https://pixabay.com/).
+
+Audio assets remain subject to their respective licensing terms.
+
+---
 
 ## Project Purpose
 
-Focus Haven is an independently developed portfolio project focused on practical frontend engineering and application design.
+Focus Haven was developed as a hands-on software engineering project to practice and demonstrate:
 
-The project demonstrates experience with React and TypeScript development, event-driven interfaces, browser APIs, persistent data, date-based calculations, debugging, and iterative software improvement.
+- Frontend application development with React and TypeScript.
+- Interactive user interface and state management.
+- Browser-based data persistence.
+- Time-based application logic.
+- Responsive interface design.
+- Git-based version control.
+- Automated deployment using GitHub Actions.
 
-## License
+The project demonstrates the development of a functional web application from implementation through public deployment.
 
-No open-source license has been selected. All rights reserved unless otherwise stated. Background images and audio assets may be subject to separate licensing terms.
+---
+
+**Focus Haven — Make time for what matters.**
